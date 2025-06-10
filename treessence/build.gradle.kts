@@ -5,7 +5,6 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.androidKotlin)
     alias(libs.plugins.dokka)
-    alias(libs.plugins.versioning)
     alias(libs.plugins.maven.publish)
     id("signing")
 }
@@ -72,7 +71,11 @@ dependencies {
 }
 
 mavenPublishing {
-    coordinates("uk.kulikov", "treesense", versioning.info.display)
+
+    coordinates(
+        "uk.kulikov", "treesense",
+        version = project.properties["libraryVersion"].toString()
+    )
 
     configure(
         AndroidSingleVariantLibrary(

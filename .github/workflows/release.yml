@@ -1,6 +1,11 @@
 name: Publish to Maven Central
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      VERSION:
+        description: "Version of Treesence"
+        required: true
 
 jobs:
   build:
@@ -15,9 +20,10 @@ jobs:
       - name: Build and publish with Gradle
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: :treessence:publishAndReleaseToMavenCentral
+          arguments: :treessence:publishAndReleaseToMavenCentral --no-configuration-cache
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGN_KEY_PRIVATE }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGN_KEY_PASSWORD }}
+          ORG_GRADLE_PROJECT_libraryVersion: ${{ github.event.inputs.VERSION }}

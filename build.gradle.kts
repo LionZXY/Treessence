@@ -4,6 +4,5 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.androidKotlin) apply false
     alias(libs.plugins.dokka) apply false
-    alias(libs.plugins.versioning) apply false
     alias(libs.plugins.maven.publish) apply false
 }
